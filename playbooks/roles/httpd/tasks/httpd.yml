@@ -1,0 +1,34 @@
+---
+
+###########################################################
+############# Instal httpd service ######################## 
+###########################################################
+
+- name: Install httpd package 
+  yum:
+    name: httpd
+    state: latest 
+                  
+- name: run httpd service
+  service:
+    name: httpd
+    state: started
+    enabled: yes
+
+- name: create new file (main file)
+  template: 
+    src: whoami.html.j2
+    dest: /var/www/html/whoami.html 
+  register: check_main_file
+
+- name: create new file (second file)
+  template: 
+    src: whoami2.html.j2
+    dest: /var/www/html/whoami2.html 
+  register: check_second_file
+
+- name: restart httpd 
+  service:
+    name: httpd
+    state: restart
+  when: (check_main_file.changed == 'True' or check_second_file.changed == 'True')

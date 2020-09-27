@@ -1,0 +1,12 @@
+---
+
+## PLAY 4
+#######################
+- name: task3
+  hosts: 
+    - web1
+    - web2
+  become: yes
+
+  roles:
+    - uptime

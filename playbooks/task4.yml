@@ -1,0 +1,15 @@
+---
+
+## PLAY 4
+#######################
+- name: task4
+  hosts: 
+    - web1
+    - web2
+  become: yes
+  vars_files:
+    - ./group_vars/passwords
+    - ./group_vars/users.yml
+
+  roles:
+    - users

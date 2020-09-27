@@ -1,0 +1,21 @@
+---
+
+###########################################################
+####################### Get uptime ######################## 
+###########################################################
+
+- name: get uptime
+  host_uptime:
+  register: result
+
+- name: print report
+  debug: msg="{{ ansible_fqdn }} {{result.uptime}} seconds"
+- name: print report control
+  debug: msg="{{ ansible_fqdn }} {{result.uptime}} seconds"
+  delegate_to: control
+
+- name: generate report
+  template: 
+    src: report.txt.j2
+    dest: /home/vagrant/playbooks/report.txt
+  delegate_to: control 
